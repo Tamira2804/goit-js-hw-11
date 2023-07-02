@@ -9,8 +9,11 @@ export async function fetchImages(search, page) {
   try {
     const response = await axios.get(URL);
     const data = await response.data;
-
-    return response.data;
+    if (response.status !== 200 || response.status === '') {
+      throw new Error(response.status);
+    } else {
+      return data;
+    }
   } catch (err) {
     return console.log(err);
   }
